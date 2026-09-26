@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Brain — Privacy Policy</title>
+<meta name="description" content="Privacy policy for the Pocket Brain Android app.">
+<style>
+  :root { --bg:#F6F6F4; --card:#FFFFFF; --ink:#1C1F1E; --muted:#5E6664; --line:#E4E6E3; --accent:#0C8578; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#121615; --card:#1A1F1E; --ink:#E9EDEC; --muted:#A3ADAA; --line:#2A3230; --accent:#4AD1C0; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:40px 16px 64px; }
+  h1 { font-size:30px; line-height:1.2; margin:0 0 4px; }
+  h2 { font-size:20px; margin:36px 0 8px; }
+  .updated { color:var(--muted); margin:0 0 24px; }
+  a { color:var(--accent); }
+  code { font-size:.92em; }
+  ul { padding-left:22px; }
+  li { margin:4px 0; }
+  .table { overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--card); }
+  table { border-collapse:collapse; width:100%; min-width:560px; font-size:15px; }
+  th, td { text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--line); }
+  tr:last-child td { border-bottom:0; }
+  th { font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+<h1>Pocket Brain — Privacy Policy</h1>
+<p class="updated">Last updated: 27 September 2026</p>
+
+<p>Pocket Brain is a personal “second brain”: you save links, screenshots, notes, voice notes and
+files, and the app summarises them so you can find them later. It is built to work <strong>on your
+phone</strong>. We (the developer) run no servers and never receive your saved content.</p>
+
+<h2>What stays on your phone</h2>
+<p>Everything you save — notes, links, pictures, voice recordings, files, the summaries, tags and
+search index the app makes from them — is stored only in the app's private storage on your
+device. The on-device AI (summaries, search, voice-to-text, answers in Ask) runs on your phone
+and does not send your content anywhere.</p>
+<p>Your profile name and photo, app settings, and any AI key you enter stay on your phone too.
+AI keys are stored encrypted (Android Keystore).</p>
+
+<h2>When the app uses the internet</h2>
+<p>Only for the things below. <strong>Online mode</strong> (You → Privacy, on by default) controls all of them
+except AI model downloads and Google sign-in, which happen only when you tap them. With Online mode off, the
+app reads no links, calls no AI provider and makes no backups.</p>
+<div class="table">
+<table>
+<thead><tr><th>What</th><th>Sent to</th><th>What is sent</th></tr></thead>
+<tbody>
+<tr><td>Reading a link you saved</td><td>The website of that link (plus YouTube/Vimeo/TikTok's public “oEmbed” service for their videos)</td><td>The link address, like a normal browser visit. No account data.</td></tr>
+<tr><td>“Read hard-to-open pages” (off by default)</td><td>Jina Reader (<code>r.jina.ai</code>)</td><td>The link address only.</td></tr>
+<tr><td>Downloading AI models</td><td>Hugging Face (<code>huggingface.co</code>)</td><td>A normal file download. No content.</td></tr>
+<tr><td>“Use my AI key” (off by default)</td><td>The provider you pick: OpenAI, Anthropic, Google Gemini or OpenRouter</td><td>The text of the item being summarised or the question you ask, with the most relevant saved items. Sent directly from your phone with <strong>your</strong> key; that provider's privacy policy applies.</td></tr>
+<tr><td>Google sign-in (optional, for your profile)</td><td>Google</td><td>Standard Google sign-in. The app keeps only your name and photo, on the phone.</td></tr>
+<tr><td>Cloud backup (optional)</td><td>Your own Google Drive, hidden app folder</td><td>An archive of your saved items and settings (not AI models, not your AI key). Only this app can see that folder. We cannot access it.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>What we don't do</h2>
+<ul>
+<li>No ads, no analytics, no crash reporting, no tracking. (Google's ML Kit, which reads text in
+pictures on the phone, normally sends Google usage statistics; that reporting is switched off
+in Pocket Brain.)</li>
+<li>No account with us. We don't collect, sell or share personal data.</li>
+<li>We never receive your saved content, AI key, or backups.</li>
+</ul>
+
+<h2>Permissions</h2>
+<ul>
+<li><strong>Microphone</strong> — only while you record a voice note or speak a question.</li>
+<li><strong>Notifications</strong> — to show progress while an item is being summarised and, if Resurfacing
+is on (You → Resurfacing), one reminder a day of something you saved a while ago.</li>
+<li><strong>Biometric</strong> — optional app lock; handled by Android, the app never sees your fingerprint.</li>
+<li><strong>Internet / network state</strong> — for the uses in the table above.</li>
+</ul>
+
+<h2>Your control</h2>
+<ul>
+<li>Delete any item in the app; it is removed from the phone.</li>
+<li>Uninstalling the app deletes everything it stored on the phone.</li>
+<li>Delete Drive backups in Google Drive (web) → Settings → Manage apps → Pocket Brain →
+Delete hidden app data. The app keeps at most the 3 newest backups.</li>
+<li>Turn off Online mode, “Use my AI key” and backup at any time.</li>
+</ul>
+
+<h2>Children</h2>
+<p>Pocket Brain is not directed at children under 13.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the new version will be posted at this address with a new date.</p>
+
+<h2>Contact</h2>
+<p>Questions: <a href="mailto:nidhishpp.pp@gmail.com">nidhishpp.pp@gmail.com</a></p>
+</main>
+</body>
+</html>

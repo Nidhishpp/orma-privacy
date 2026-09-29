@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Orma — OpenRouter sign-in</title>
+<style>
+  :root { --bg:#F6F6F4; --ink:#1C1F1E; --muted:#5E6664; --accent:#0C8578; --on-accent:#FFFFFF; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#121615; --ink:#E9EDEC; --muted:#A3ADAA; --accent:#4AD1C0; --on-accent:#0B1211; }
+  }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:480px; margin:0 auto; padding:64px 16px; text-align:center; }
+  p { margin:0 0 8px; }
+  .muted { color:var(--muted); font-size:14px; }
+  a.button { display:inline-block; margin-top:20px; padding:12px 24px; border-radius:12px;
+             background:var(--accent); color:var(--on-accent); text-decoration:none; font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+  <p id="msg">Returning to Orma…</p>
+  <p class="muted">This page only passes OpenRouter's one-time sign-in code back to the Orma app on your phone. Nothing is stored here.</p>
+  <a class="button" id="back" href="orma://openrouter">Back to Orma</a>
+</main>
+<script>
+  // OpenRouter sends the user here with ?code=…; hand it to the app. The code alone is useless:
+  // redeeming it needs the PKCE verifier, which never leaves the app.
+  var params = new URLSearchParams(location.search);
+  var code = params.get("code");
+  var target = "orma://openrouter" + (code ? "?code=" + encodeURIComponent(code) : "?error=cancelled");
+  if (!code) document.getElementById("msg").textContent = "Sign-in was cancelled.";
+  document.getElementById("back").href = target;
+  // Drop the code from the address bar and history.
+  history.replaceState(null, "", location.pathname);
+  setTimeout(function () { location.href = target; }, 300);
+</script>
+</body>
+</html>

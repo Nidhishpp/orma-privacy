@@ -13,7 +13,7 @@
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--ink);
          font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
-  main { max-width:760px; margin:0 auto; padding:24px 16px 64px; }
+  main { max-width:760px; margin:0 auto; padding:40px 16px 64px; }
   h1 { font-size:30px; line-height:1.2; margin:0 0 4px; }
   h2 { font-size:20px; margin:36px 0 8px; }
   .updated { color:var(--muted); margin:0 0 24px; }
@@ -43,75 +43,117 @@
 </nav>
 
 <h1>Orma — Privacy Policy</h1>
-<p class="updated">Last updated: 28 September 2026</p>
+<p class="updated">Last updated 2026-10-09</p>
 
-<p>Orma is a personal “second brain”: you save links, screenshots, notes, voice notes and
-files, and the app summarises them so you can find them later. It is built to work <strong>on your
-phone</strong>. We (ChaiStack, the developer) never receive your saved content.</p>
+<p>Orma is a personal “second brain”: you save links, screenshots, notes, voice notes and files, and
+the app summarises them so you can find them later by asking in plain words. ChaiStack (“we”) makes
+Orma. This page says what leaves your phone, where it goes, and what is kept.</p>
 
 <h2>What stays on your phone</h2>
-<p>Everything you save — notes, links, pictures, voice recordings, files, the summaries, tags and
-search index the app makes from them — is stored only in the app's private storage on your
-device. The on-device AI (summaries, search, voice-to-text, answers in Ask) runs on your phone
-and does not send your content anywhere.</p>
-<p>App settings and any AI key you enter stay on your phone too. Your profile name and photo stay on the phone unless you use Google sign-in (see below).
-AI keys are stored encrypted (Android Keystore).</p>
+<ul>
+<li><strong>Your memories</strong> (notes, links, summaries, tags, the search index) are kept in a database on the phone
+that is <strong>encrypted</strong> (SQLCipher, with a random key protected by the Android Keystore).</li>
+<li><strong>Voice recordings, pictures, covers and files</strong> are kept in the app's private storage, which other apps
+cannot read, but these files are <strong>not encrypted</strong>.</li>
+<li><strong>Search</strong> runs on the phone with on-device models. Searching never sends your memories anywhere.</li>
+<li><strong>AI keys</strong> you paste are stored encrypted (Android Keystore) and leave the phone only to the provider
+they belong to.</li>
+</ul>
 
-<h2>When the app uses the internet</h2>
-<p>Only for the things below. <strong>Online mode</strong> (You → Privacy, on by default) controls all of them
-except AI model downloads and Google sign-in, which happen only when you tap them. With Online mode off, the
-app reads no links, calls no AI provider and makes no backups.</p>
+<h2>Orma AI (the default)</h2>
+<p>To summarise a save, Orma sends what is needed to understand it to <strong>Orma AI</strong>, our service on Google Cloud
+Run, which asks <strong>Google Gemini on Vertex AI</strong> (region <code>asia-south1</code>, Mumbai). What is sent: the
+text of the save (a note, a page's text, text read from a picture), up to 4 small pictures, or a link. The same service
+answers questions in Ask (your question and the 4 best-matching saves), translates a memory when you tap Translate, and
+writes out voice notes (the recording, compressed). Voice notes are always written out by Orma AI, also when you use
+your own key.</p>
+<p><strong>Never stored:</strong> Orma AI keeps no copy of what you send or of the reply. Our logs hold only the endpoint,
+status, time taken, token counts and a hashed account id — never text, links, audio or pictures. Google does not use
+Vertex AI requests to train its models. The one exception is the community kitchen below.</p>
+<p>Free accounts get a number of saves a week; Orma AI counts them against your account.</p>
+
+<h2>Community kitchen (you can turn it off)</h2>
+<p>When you save a <strong>public</strong> web link with Orma AI and “Help the community kitchen” is on (You → Privacy; on by
+default, and a card on Home asks you once), Orma AI keeps the summary it made for that link for up to 180 days, so the
+next person who saves the same link gets it instantly. If the link is a recipe, its facts (name, ingredients, steps, times)
+can join a shared recipe catalog once 3 different people have saved it. To count savers we keep only a one-way code per
+saver, never your account, email or notes. Private notes, pictures, voice notes and non-public links are never part of
+it. Turn the switch off and nothing more is added from your saves.</p>
+
+<h2>Your own AI key (optional)</h2>
+<p>With “Use my AI key” on, summaries and Ask answers go directly from your phone to the provider you pick (OpenAI,
+Anthropic, Google Gemini or OpenRouter) with <strong>your</strong> key; that provider's privacy policy applies. We never see
+your key or that traffic. “Sign in with OpenRouter” uses OpenRouter's own sign-in page; the key it returns stays on your
+phone.</p>
+
+<h2>Your account</h2>
+<p>Orma needs a Google sign-in. It creates a Firebase account (Google Cloud) and a small profile: your email, Google name,
+Google photo link, when you first and last signed in, your app language, your plan, your choices for the community
+kitchen and “Orma news by email” (off unless you turn it on), and “Tell me when Pro is ready” if you tap it. Next to it we
+keep <strong>usage counts</strong> (how many saves, answers, translations and transcriptions per week or month, the
+category of a save, whether a shared result was reused) to run the weekly limit and plan the product. No memory content
+is in your account.</p>
+
+<h2>Backup (optional)</h2>
+<p>Cloud backup goes to the hidden app folder of <strong>your own Google Drive</strong>, which only Orma can open; we cannot
+access it. The backup (your memories, recordings, pictures and settings; not AI models, not your AI key) is encrypted on
+the phone (AES-256-GCM) with a backup key that is yours. The key is saved in Google's Block Store (end-to-end encrypted)
+so a new phone can restore, and you can write down a 24-word recovery code. Anyone with that code can read your
+backups, so keep it private. You can also save a backup to a file you choose.</p>
+
+<h2>Other connections</h2>
 <div class="table">
 <table>
 <thead><tr><th>What</th><th>Sent to</th><th>What is sent</th></tr></thead>
 <tbody>
-<tr><td>Reading a link you saved</td><td>The website of that link (plus YouTube/Vimeo/TikTok's public “oEmbed” service for their videos)</td><td>The link address, like a normal browser visit. No account data.</td></tr>
+<tr><td>Reading a link you saved</td><td>That website (and YouTube/Vimeo/TikTok's public oEmbed service)</td><td>The link address, like a browser visit.</td></tr>
 <tr><td>“Read hard-to-open pages” (off by default)</td><td>Jina Reader (<code>r.jina.ai</code>)</td><td>The link address only.</td></tr>
-<tr><td>Downloading AI models</td><td>Hugging Face (<code>huggingface.co</code>)</td><td>A normal file download. No content.</td></tr>
-<tr><td>“Use my AI key” (off by default)</td><td>The provider you pick: OpenAI, Anthropic, Google Gemini or OpenRouter</td><td>The text of the item being summarised or the question you ask, with the most relevant saved items. Sent directly from your phone with <strong>your</strong> key; that provider's privacy policy applies.</td></tr>
-<tr><td>Google sign-in (optional, for your profile)</td><td>Google, and our Firebase project (Google Cloud)</td><td>Standard Google sign-in. It creates an Orma account and stores a small profile: your email, Google name, Google photo link, and when you first and last signed in. Nothing you save is included.</td></tr>
-<tr><td>Cloud backup (optional)</td><td>Your own Google Drive, hidden app folder</td><td>An archive of your saved items and settings (not AI models, not your AI key). Only this app can see that folder. We cannot access it.</td></tr>
-<tr><td>“Buy me a coffee” (optional)</td><td>Google Play</td><td>Handled entirely by Google Play’s payment screen; Google’s privacy policy applies. We never see your payment details. The app keeps only how many coffees you bought, on the phone.</td></tr>
+<tr><td>Search model download</td><td>Hugging Face (<code>huggingface.co</code>)</td><td>A file download. No content.</td></tr>
+<tr><td>“Buy me a coffee” (optional)</td><td>Google Play</td><td>Google Play's payment screen; we never see payment details.</td></tr>
 </tbody>
 </table>
 </div>
+<p><strong>Online mode</strong> (You → Privacy, on by default) controls link reading, cover pictures and your own key. When
+it is off, those wait until you turn it back on.</p>
 
 <h2>What we don't do</h2>
 <ul>
-<li>No ads, no analytics, no crash reporting, no tracking. (Google's ML Kit, which reads text in
-pictures on the phone, normally sends Google usage statistics; that reporting is switched off
-in Orma.)</li>
-<li>An account only if you choose Google sign-in, holding just the profile above. We don't sell or share personal data.</li>
-<li>We never receive your saved content, AI key, or backups.</li>
+<li>No ads, no third-party analytics SDK, no crash reporting, no tracking. (ML Kit's usage reporting to Google is switched off.)</li>
+<li>We don't sell personal data. We share it only with the service providers above (Google Cloud, Firebase, Vertex AI) to run Orma.</li>
+<li>We never receive your AI key or your backups.</li>
 </ul>
 
 <h2>Permissions</h2>
 <ul>
 <li><strong>Microphone</strong> — only while you record a voice note or speak a question.</li>
-<li><strong>Notifications</strong> — to show progress while an item is being summarised and, if Resurfacing
-is on (You → Resurfacing), one reminder a day of something you saved a while ago.</li>
+<li><strong>Notifications</strong> — progress while a save is summarised or backed up, and the optional daily “Remember this?”.</li>
 <li><strong>Biometric</strong> — optional app lock; handled by Android, the app never sees your fingerprint.</li>
-<li><strong>Internet / network state</strong> — for the uses in the table above.</li>
+<li><strong>Internet / network state</strong> — for the uses above.</li>
 </ul>
 
-<h2>Your control</h2>
+<h2>Your rights and control (India DPDP Act 2023)</h2>
 <ul>
-<li>Delete any item in the app; it is removed from the phone.</li>
-<li>Uninstalling the app deletes everything it stored on the phone.</li>
-<li>Delete Drive backups in Google Drive (web) → Settings → Manage apps → Orma →
-Delete hidden app data. The app keeps at most the 3 newest backups.</li>
-<li>Turn off Online mode, “Use my AI key” and backup at any time.</li>
-<li>To delete your Orma account profile (from Google sign-in), email us at the address below and we will delete it.</li>
+<li>Signing in is your consent to the processing above, for these purposes only. Marketing email is a separate choice, off by default, and you can withdraw either at any time.</li>
+<li>Delete any memory in the app; it is removed from the phone. Uninstalling deletes everything on the phone.</li>
+<li>Export your memories: You → Privacy → Export my data.</li>
+<li>Delete Drive backups: Google Drive (web) → Settings → Manage apps → Orma → Delete hidden app data.</li>
+<li><strong>Delete your account:</strong> in the app, You → Delete account (it can also delete your Drive backups); this
+deletes your sign-in account, your profile, its usage counts and quota records at once, and everything on the phone.
+Without the app, email us from your account's address (contact below) and we delete them within 30 days.
+Step by step: <a href="delete/">How to delete your account</a>. Summaries of public links and recipe facts
+already in the shared kitchen hold nothing that identifies you and stay.</li>
+<li>You can ask what we hold about you, have it corrected, or name someone to act for you. Complaints go to us first
+(contact below), then to the Data Protection Board of India.</li>
 </ul>
 
 <h2>Children</h2>
-<p>Orma is not directed at children under 13.</p>
+<p>Orma is not directed at children under 18 and does not knowingly process their data.</p>
 
 <h2>Changes</h2>
 <p>If this policy changes, the new version will be posted at this address with a new date.</p>
 
-<h2>Contact</h2>
-<p>Developer: ChaiStack. Questions: <a href="mailto:nidhishpp.pp@gmail.com">nidhishpp.pp@gmail.com</a></p>
+<h2>Contact and grievances</h2>
+<p>Developer: ChaiStack. Privacy questions, deletion requests and grievances: <a href="mailto:nidhishpp.pp@gmail.com">nidhishpp.pp@gmail.com</a></p>
 </main>
 </body>
 </html>
